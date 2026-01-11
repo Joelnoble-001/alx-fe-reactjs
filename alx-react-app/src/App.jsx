@@ -26,9 +26,9 @@ function App() {
       {/* Example UserProfile component */}
 
       <UserProfile 
-        name="Bella" 
-        age={45} 
-        bio="Loves sleeping and eating." 
+        name="Alice" 
+        age={25} 
+        bio="Loves hiking and photography" 
       />
 
      {/* Vite + React logos and counter */}
