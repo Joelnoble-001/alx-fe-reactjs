@@ -5,7 +5,7 @@ export const useRecipeStore = create((set) => ({
   recipes: [],
   searchTerm: '',
   favorites: [],
-  Recommendations: [],
+  recommendations: [],
 
   // setters
   setRecipes: (recipes) => set({ recipes }),
