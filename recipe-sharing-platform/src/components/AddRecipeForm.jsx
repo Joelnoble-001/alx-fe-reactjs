@@ -1,28 +1,46 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+
+  // Validation function
+  const validate = () => {
+    const newErrors = {};
+
+    if (!title.trim()) {
+      newErrors.title = "Title is required";
+    }
+
+    if (!ingredients.trim()) {
+      newErrors.ingredients = "Ingredients are required";
+    } else if (ingredients.split(",").length < 2) {
+      newErrors.ingredients = "At least 2 ingredients required";
+    }
+
+    if (!steps.trim()) {
+      newErrors.steps = "Preparation steps are required";
+    }
+
+    return newErrors;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !ingredients || !steps) {
-      setError("All fields are required.");
-      return;
+    const validationErrors = validate();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      // Submit form (currently just alert)
+      alert("Recipe submitted successfully!");
+      // Reset form
+      setTitle("");
+      setIngredients("");
+      setSteps("");
     }
-
-    const ingredientList = ingredients.split(",");
-
-    if (ingredientList.length < 2) {
-      setError("Please include at least two ingredients.");
-      return;
-    }
-
-    setError("");
-    alert("Recipe submitted successfully!");
   };
 
   return (
@@ -35,22 +53,21 @@ function AddRecipeForm() {
           Add New Recipe
         </h2>
 
-        {error && (
-          <p className="text-red-500 mb-4">{error}</p>
-        )}
-
+        {/* Title Field */}
         <div className="mb-4">
-          <label className="block mb-1 font-medium">
-            Recipe Title
-          </label>
+          <label className="block mb-1 font-medium">Recipe Title</label>
           <input
             type="text"
             className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-400"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+          {errors.title && (
+            <p className="text-red-500 mt-1">{errors.title}</p>
+          )}
         </div>
 
+        {/* Ingredients Field */}
         <div className="mb-4">
           <label className="block mb-1 font-medium">
             Ingredients (comma separated)
@@ -61,18 +78,23 @@ function AddRecipeForm() {
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
           ></textarea>
+          {errors.ingredients && (
+            <p className="text-red-500 mt-1">{errors.ingredients}</p>
+          )}
         </div>
 
+        {/* Steps Field */}
         <div className="mb-4">
-          <label className="block mb-1 font-medium">
-            Preparation Steps
-          </label>
+          <label className="block mb-1 font-medium">Preparation Steps</label>
           <textarea
             className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-400"
             rows="4"
             value={steps}
             onChange={(e) => setSteps(e.target.value)}
           ></textarea>
+          {errors.steps && (
+            <p className="text-red-500 mt-1">{errors.steps}</p>
+          )}
         </div>
 
         <button
