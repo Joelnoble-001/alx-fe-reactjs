@@ -1,9 +1,15 @@
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import data from "../data.json";
 
 function RecipeDetail() {
   const { id } = useParams();
-  const recipe = data.find((r) => r.id === parseInt(id));
+  const [recipe, setRecipe] = useState(null);
+
+  useEffect(() => {
+    const foundRecipe = data.find((r) => r.id === parseInt(id));
+    setRecipe(foundRecipe || null);
+  }, [id]);
 
   if (!recipe) {
     return <div className="p-6">Recipe not found.</div>;
@@ -31,9 +37,7 @@ function RecipeDetail() {
 
         <div>
           <h2 className="text-xl font-semibold mb-2">Instructions</h2>
-          <p className="text-gray-700 leading-relaxed">
-            {recipe.instructions}
-          </p>
+          <p className="text-gray-700 leading-relaxed">{recipe.instructions}</p>
         </div>
       </div>
     </div>
