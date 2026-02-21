@@ -2,6 +2,8 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import RecipeDetail from "./components/RecipeDetail";
 import AddRecipeForm from "./components/AddRecipeForm";
@@ -11,13 +13,13 @@ function App() {
 
   return (
     <>
-      <Router>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/add" element={<AddRecipeForm />} />
         </Routes>
-      </Router>
+      </BrowserRouter>
 
       <div className="text-blue-500 text-3xl font-bold text-center mt-10">
         Tailwind is Working 🚀
