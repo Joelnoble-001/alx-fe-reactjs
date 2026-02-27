@@ -5,6 +5,8 @@ import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import Profile from "./components/Profile.jsx";
 import BlogPost from "./components/BlogPost.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+
 
 const isAuthenticated = false;
 
